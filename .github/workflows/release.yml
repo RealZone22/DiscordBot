@@ -1,0 +1,39 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+      - gh-actions-tests
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.24.1
+
+      - name: Build
+        run: go build -o discordbot
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Get short SHA
+        id: sha
+        run: echo "sha=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
+
+      - name: Release
+        uses: MarvinPinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ env.date }}-${{ env.sha }}"
+          prerelease: false
+          files: discordbot
