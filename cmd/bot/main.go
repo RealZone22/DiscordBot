@@ -2,6 +2,7 @@ package bot
 
 import (
 	"context"
+	"github.com/RealZone22/DiscordBot/cmd/database"
 	"github.com/RealZone22/DiscordBot/internal/commands"
 	"github.com/RealZone22/DiscordBot/internal/cron"
 	"github.com/RealZone22/DiscordBot/internal/events"
@@ -25,6 +26,8 @@ func Init() {
 	if err := client.OpenGateway(context.TODO()); err != nil {
 		utils.Logger.Fatal().Err(err).Msg("Error opening Discord gateway")
 	}
+
+	database.Init()
 
 	events.Register()
 	commands.Register()

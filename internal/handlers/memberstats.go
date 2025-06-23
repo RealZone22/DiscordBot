@@ -26,5 +26,5 @@ func HandleMemberStats(guildId snowflake.ID) {
 		return
 	}
 
-	utils.Logger.Info().Str("guild", guildId.String()).Int("member_count", guild.ApproximateMemberCount).Msg("Updated users channel")
+	utils.Logger.Debug().Str("guild", guildId.String()).Int("member_count", guild.ApproximateMemberCount).Msg("Updated users channel")
 }

@@ -11,6 +11,7 @@ var Commands = []discord.ApplicationCommandCreate{
 	Ping,
 	UserInfo,
 	Purge,
+	Warn,
 }
 
 func Register() {
@@ -18,6 +19,24 @@ func Register() {
 	h.Command("/ping", PingHandler)
 	h.Command("/userinfo", UserInfoHandler)
 	h.Command("/purge", PurgeHandler)
+	h.Route("/warn", func(r handler.Router) {
+		r.Command("/create", CreateWarnHandler)
+		r.Command("/get", GetWarnsHandler)
+		r.Command("/delete", DeleteWarnHandler)
+		r.Command("/clear", ClearWarnsHandler)
+		r.Command("/count", CountWarnsHandler)
+	})
+
+	if utils.Config.Ticket.Enabled {
+		h.Route("/ticket", func(r handler.Router) {
+			r.Command("/embed", TicketEmbedHandler)
+			r.Command("/create", CreateTicketHandler)
+			r.Command("/close", CloseTicketHandler)
+			r.Command("/addmember", AddMemberToTicketHandler)
+			r.Command("/removemember", RemoveMemberFromTicketHandler)
+		})
+		Commands = append(Commands, Ticket)
+	}
 
 	utils.Client.AddEventListeners(h)
 

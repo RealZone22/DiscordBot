@@ -3,9 +3,11 @@ package utils
 import (
 	"github.com/disgoorg/disgo/bot"
 	"github.com/disgoorg/snowflake/v2"
+	"xorm.io/xorm"
 )
 
 var Client bot.Client
+var DB *xorm.Engine
 
 func ConvertToSnowflake(id string) snowflake.ID {
 	snowflakeID, err := snowflake.Parse(id)
