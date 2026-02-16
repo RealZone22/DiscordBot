@@ -6,7 +6,7 @@ require (
 	github.com/disgoorg/disgo v0.18.16
 	github.com/disgoorg/json v1.2.0
 	github.com/disgoorg/snowflake/v2 v2.0.3
-	github.com/mattn/go-sqlite3 v1.14.28
+	github.com/mattn/go-sqlite3 v1.14.34
 	github.com/robfig/cron v1.2.0
 	github.com/rs/zerolog v1.34.0
 	xorm.io/xorm v1.3.9
